@@ -4,6 +4,8 @@
 + SpringBoot 2.6.3
 + Spring Data JPA
 + Gradle
++ H2 Database
++ TDD (Test Code)
 + InteliJ IDEA
 
 ## ERD 

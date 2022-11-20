@@ -23,6 +23,6 @@ class Employee(
     @Column(name = "employee_password", nullable = false, length = 255)
     var employee_password: String ?= null   // 사원 비밀번호
 
-){
+): BaseEntity(){
 
 }

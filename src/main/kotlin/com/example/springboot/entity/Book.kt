@@ -30,4 +30,6 @@ class Book(
     @Column(name = "reg_date", length = 255)
     var reg_date: LocalDateTime
 
-)
+): BaseEntity(){
+
+}

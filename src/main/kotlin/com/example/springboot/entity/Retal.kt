@@ -29,4 +29,6 @@ class Retal(
     @Column(name = "late_fee", length = 255)
     var late_fee: Int ?= 0
 
-    )
+    ): BaseEntity(){
+
+}

@@ -24,4 +24,6 @@ class LibraryMd(
 
     @Column(name = "retal_yn", length = 255)
     var retal_yn: String
-)
+): BaseEntity(){
+
+}

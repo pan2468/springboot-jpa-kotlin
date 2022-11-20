@@ -19,7 +19,7 @@ class Member(
 
     @Column(name = "member_mileage", nullable = false, length = 255)
     var mileage: Int ?= 0               // 회원 사용량
-    ){
+    ): BaseEntity(){
 
 }
 

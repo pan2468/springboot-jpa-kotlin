@@ -9,7 +9,7 @@ class MemberMd(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reg_id", length = 255)
-    var reg_id: Long ?= null,   // 등록 번호
+    var reg_id: Long ?= null,       // 등록 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
@@ -18,4 +18,6 @@ class MemberMd(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private var member: Member? = null, // 회원
-)
+): BaseEntity(){
+
+}

@@ -1,4 +1,4 @@
-package com.example.springboot.entity
+package com.example.springboot.back.entity
 
 import lombok.Getter
 import org.springframework.data.annotation.CreatedBy

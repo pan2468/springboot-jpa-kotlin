@@ -1,4 +1,4 @@
-package com.example.springboot.entity
+package com.example.springboot.back.entity
 
 import lombok.Getter
 import lombok.Setter
@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass
 @MappedSuperclass
 @Getter
 @Setter
-abstract class BaseTimeEntity (){
+abstract class BaseTimeEntity(){
 
     @CreatedDate
     @Column(updatable = false)

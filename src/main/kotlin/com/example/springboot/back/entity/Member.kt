@@ -12,7 +12,7 @@ class Member(
     var memberId: Long ?= null,        // 회원 번호
 
     @Column(name = "member_phone", nullable = false, length = 255)
-    var memberPhone: String ?= null,   // 회원 전화번호
+    var memberPhone: String?,   // 회원 전화번호
 
     @Column(name = "member_address", nullable = false, length = 255)
     var address: String ?= null,        // 회원 주소

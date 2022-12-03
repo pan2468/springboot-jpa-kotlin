@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @TestPropertySource(locations = ["classpath:application.properties"])
@@ -60,15 +61,20 @@ internal class MemberControllerTest @Autowired constructor(
     }
 
     @Test
+    @Transactional
     fun `회원 중복 예외` (){
         //given
-        var member = Member()
-        member.memberPhone = "010-1111-2222"
+        var member = Member(
+            memberId = 1L,
+            memberPhone = "010-0000-0000",
+            address = "경기도 부천시 원미구",
+            mileAge = 2
+        )
 
-        var member1 = Member()
-        member1.memberPhone = "010-1111-2222"
+        var member1 = member
+        member1.memberPhone = "010-0000-0000"
 
-        memberDaoService.memberJoin(member)
+        memberRepository.save(member)
 
         //when
         val e: Throwable = assertThrows(IllegalStateException::class.java) { memberDaoService.memberJoin(member1) }

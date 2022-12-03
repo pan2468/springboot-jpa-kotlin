@@ -2,33 +2,30 @@ package com.example.springboot.client.controller
 
 import com.example.springboot.back.entity.Member
 import com.example.springboot.back.repository.MemberRepository
+import com.example.springboot.back.service.MemberDaoService
 import com.example.springboot.client.dto.MemberDto
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType
 import org.springframework.test.context.TestPropertySource
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.get
-import org.junit.jupiter.api.Assertions.assertEquals
 
 @SpringBootTest
 @TestPropertySource(locations = ["classpath:application.properties"])
 @AutoConfigureMockMvc
 internal class MemberControllerTest @Autowired constructor(
     internal var memberRepository: MemberRepository,
-    internal var mockMvc: MockMvc
+    internal var memberDaoService: MemberDaoService
 ){
 
 
     @Test
-    fun `회원 가입 DB 저장` (){
+    fun memberJoin(){
 
         //given
-        val memberRequest: MemberDto.MemberRequest = MemberDto.MemberRequest(
+        val memberRequest = MemberDto.MemberRequest(
             member_id = 1L,
             member_phone = "010-1111-2222",
             address = "경기도 부천시 원미구 도당동",
@@ -37,30 +34,47 @@ internal class MemberControllerTest @Autowired constructor(
 
         //when
         val member = Member(
-            member_id = memberRequest.member_id,
-            member_phone = memberRequest.member_phone,
+            memberId = memberRequest.member_id,
+            memberPhone = memberRequest.member_phone,
             address = memberRequest.address,
-            mileage = memberRequest.mileage
+            mileAge = memberRequest.mileage
         )
 
         val memberSaveToString = memberRepository.save(member)
 
         //then
-        assertEquals(memberSaveToString.member_id,1L)
-        assertEquals(memberSaveToString.member_phone,"010-1111-2222")
+        assertEquals(memberSaveToString.memberId,1L)
+        assertEquals(memberSaveToString.memberPhone,"010-1111-2222")
         assertEquals(memberSaveToString.address,"경기도 부천시 원미구 도당동")
-        assertEquals(memberSaveToString.mileage,2)
+        assertEquals(memberSaveToString.mileAge,2)
     }
 
     @Test
     fun `회원 목록 DB 조회`(){
-        this.`회원 가입 DB 저장`()
+        this.memberJoin()
 
         val memberListAll: List<Member> = memberRepository.findAll()
 
-        assertEquals(memberListAll.get(0).member_id, 1L)
-        assertEquals(memberListAll.get(0).member_phone,"010-1111-2222")
+        assertEquals(memberListAll.get(0).memberId, 1L)
+        assertEquals(memberListAll.get(0).memberPhone,"010-1111-2222")
+    }
 
+    @Test
+    fun `회원 중복 예외` (){
+        //given
+        var member = Member()
+        member.memberPhone = "010-1111-2222"
+
+        var member1 = Member()
+        member1.memberPhone = "010-1111-2222"
+
+        memberDaoService.memberJoin(member)
+
+        //when
+        val e: Throwable = assertThrows(IllegalStateException::class.java) { memberDaoService.memberJoin(member1) }
+
+        //then
+        assertEquals("이미 가입된 회원입니다.", e.message)
     }
 }
 

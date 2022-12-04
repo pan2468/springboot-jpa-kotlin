@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
+import org.springframework.transaction.annotation.Transactional
 
 
 @TestPropertySource(locations = ["classpath:application.properties"])
@@ -17,6 +18,7 @@ internal class EmployeeDtoServiceTest @Autowired constructor(
 ){
 
     @Test
+    @Transactional
     @DisplayName("저장 API 조회")
     fun employeeSave (){
         //given
@@ -40,8 +42,5 @@ internal class EmployeeDtoServiceTest @Autowired constructor(
 
         //then
         println(employeeList.toString())
-
     }
-
-
 }

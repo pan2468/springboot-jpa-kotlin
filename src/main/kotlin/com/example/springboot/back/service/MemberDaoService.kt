@@ -2,6 +2,7 @@ package com.example.springboot.back.service
 
 import com.example.springboot.back.entity.Member
 import com.example.springboot.back.repository.MemberRepository
+import com.example.springboot.client.dto.MemberDto
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 
@@ -26,4 +27,16 @@ class MemberDaoService (
         }
     }
 
+    fun memberSave(
+        memberRequest: MemberDto.MemberRequest
+    ){
+        val memberSave = Member(
+            memberPhone = memberRequest.member_phone,
+            address = memberRequest.address,
+            mileAge = memberRequest.mileage
+        ).let {
+            memberRepository.save(it)
+        }
+    }
 }
+

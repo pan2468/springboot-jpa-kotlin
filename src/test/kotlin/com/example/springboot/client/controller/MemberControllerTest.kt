@@ -26,12 +26,7 @@ internal class MemberControllerTest @Autowired constructor(
     fun memberJoin(){
 
         //given
-        val memberRequest = MemberDto.MemberRequest(
-            member_id = 1L,
-            member_phone = "010-1111-2222",
-            address = "경기도 부천시 원미구 도당동",
-            mileage = 2
-        )
+        val memberRequest = MemberDto.MemberRequest(member_id = 1L, member_phone = "010-1111-2222", address = "경기도 부천시 원미구 도당동", mileage = 2)
 
         //when
         val member = Member(
@@ -63,6 +58,7 @@ internal class MemberControllerTest @Autowired constructor(
     @Test
     @Transactional
     fun `회원 중복 예외` (){
+
         //given
         var member = Member(
             memberId = 1L,
@@ -74,7 +70,7 @@ internal class MemberControllerTest @Autowired constructor(
         var member1 = member
         member1.memberPhone = "010-0000-0000"
 
-        memberRepository.save(member)
+        memberRepository.save(member) // 회원 가입 등록
 
         //when
         val e: Throwable = assertThrows(IllegalStateException::class.java) { memberDaoService.memberJoin(member1) }
@@ -82,5 +78,6 @@ internal class MemberControllerTest @Autowired constructor(
         //then
         assertEquals("이미 가입된 회원입니다.", e.message)
     }
+    
 }
 

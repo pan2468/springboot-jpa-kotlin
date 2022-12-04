@@ -9,11 +9,11 @@ class MemberMd(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reg_id", length = 255)
-    var reg_id: Long ?= null,       // 등록 번호
+    var reg_id: Long ?= null, // 등록 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
-    private var retal: Retal? = null, // 예약
+    private var employee: Employee? = null, // 예약
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

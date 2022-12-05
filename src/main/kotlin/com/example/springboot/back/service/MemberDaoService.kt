@@ -38,5 +38,9 @@ class MemberDaoService (
             memberRepository.save(it)
         }
     }
+
+    fun getMemberList(): List<Member> {
+        return memberRepository.findAll()
+    }
 }
 

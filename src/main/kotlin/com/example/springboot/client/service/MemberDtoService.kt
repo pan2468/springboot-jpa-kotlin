@@ -18,5 +18,20 @@ class MemberDtoService @Autowired constructor(
         memberDaoService.memberSave(memberRequest)
     }
 
+    @Transactional(readOnly = true)
+    fun memberList(): MemberDto.MemberListRespose {
+
+        val memberList =  memberDaoService.getMemberList()
+
+       val memberListAll =  MemberDto.MemberListRespose(
+            memberId = memberList.get(0).memberId,
+            member_phone = memberList.get(0).memberPhone,
+            address = memberList.get(0).address,
+            mileage = memberList.get(0).mileAge
+        )
+
+        return memberListAll
+    }
+
 
 }

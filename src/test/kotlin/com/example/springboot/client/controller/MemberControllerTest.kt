@@ -24,13 +24,15 @@ internal class MemberControllerTest @Autowired constructor(
 
     @Test
     fun memberJoin(){
-
         //given
-        val memberRequest = MemberDto.MemberRequest(member_id = 1L, member_phone = "010-1111-2222", address = "경기도 부천시 원미구 도당동", mileage = 2)
+        val memberRequest = MemberDto.MemberRequest(
+            member_phone = "010-1111-2222",
+            address = "경기도 부천시 원미구 도당동",
+            mileage = 2
+        )
 
         //when
         val member = Member(
-            memberId = memberRequest.member_id,
             memberPhone = memberRequest.member_phone,
             address = memberRequest.address,
             mileAge = memberRequest.mileage
@@ -78,6 +80,8 @@ internal class MemberControllerTest @Autowired constructor(
         //then
         assertEquals("이미 가입된 회원입니다.", e.message)
     }
+
+
     
 }
 

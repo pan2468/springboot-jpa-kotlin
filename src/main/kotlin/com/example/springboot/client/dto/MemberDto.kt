@@ -1,6 +1,9 @@
 package com.example.springboot.client.dto
 
 
+import com.example.springboot.back.entity.BaseEntity
+import com.example.springboot.back.entity.Member
+import com.example.springboot.back.entity.MemberMd
 import io.swagger.annotations.ApiModelProperty
 
 
@@ -19,4 +22,17 @@ object MemberDto {
 
     )
 
+    data class MemberListRespose(
+        val memberId: Long?,
+        val member_phone: String?,
+        val address: String?,
+        val mileage: Int?
+
+    ):BaseEntity(){
+
+
+    }
 }
+
+
+
